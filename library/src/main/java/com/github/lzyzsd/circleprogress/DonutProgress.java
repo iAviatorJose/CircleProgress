@@ -28,6 +28,7 @@ public class DonutProgress extends View {
     private float textSize;
     private int textColor;
     private int progress = 0;
+    private String progressText = "";
     private int max;
     private int finishedStrokeColor;
     private int unfinishedStrokeColor;
@@ -162,7 +163,15 @@ public class DonutProgress extends View {
         }
         invalidate();
     }
-
+    
+    public void setText(String text){
+        this.progressText = text;
+    }
+    
+    public String getText(){
+        return progressText;
+    }
+    
     public int getMax() {
         return max;
     }
@@ -287,7 +296,7 @@ public class DonutProgress extends View {
         canvas.drawArc(finishedOuterRect, 0, getProgressAngle(), false, finishedPaint);
         canvas.drawArc(unfinishedOuterRect, getProgressAngle(), 360 - getProgressAngle(), false, unfinishedPaint);
 
-        String text = prefixText + progress + suffixText;
+        String text = prefixText + progressText + suffixText;
         if (!TextUtils.isEmpty(text)) {
             float textHeight = textPaint.descent() + textPaint.ascent();
             canvas.drawText(text, (getWidth() - textPaint.measureText(text)) / 2.0f, (getWidth() - textHeight) / 2.0f, textPaint);
